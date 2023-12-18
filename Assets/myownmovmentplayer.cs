@@ -11,7 +11,6 @@ namespace Assets
         private float Speed = 8f;
         private float jumpingpower = 10f; // Adjusted jumping power
         private bool isFacingRight = true;
-        private bool isGroundedVar;
         private Rigidbody2D rb;
         private float groundCheckRadius = 0.2f;
 
@@ -26,35 +25,27 @@ namespace Assets
         // Update is called once per frame
         void Update()
         {
-            horizontal = Input.GetAxisRaw("Horizontal") * Speed;
+            horizontal = Input.GetAxisRaw("Horizontal");
 
             // Set the "Speed" parameter in the Animator
             animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
-            if (Input.GetButtonDown("Jump") && isGrounded())
-            {
-                // Trigger the "Jump" animation
-                animator.SetTrigger("Jump");
-                rb.velocity = new Vector2(rb.velocity.x, jumpingpower);
-            }
 
             Flip();
         }
 
         private void FixedUpdate()
         {
-            // Check if grounded
-            isGroundedVar = isGrounded();
+            rb.velocity = new Vector2(horizontal * Speed, rb.velocity.y);
 
-            // Use rb.AddForce to apply horizontal movement
-            rb.AddForce(new Vector2(horizontal * Speed, 0f));
+
 
             // Limit the horizontal velocity to the Speed
             float limitedSpeed = Mathf.Clamp(rb.velocity.x, -Speed, Speed);
             rb.velocity = new Vector2(limitedSpeed, rb.velocity.y);
 
             // If not moving horizontally, set "Speed" to 0 to transition to idle
-            if (Mathf.Abs(horizontal) < 0.01f)
+            if (Mathf.Abs(horizontal) < 0.0f)
             {
                 animator.SetFloat("Speed", 0f);
             }
