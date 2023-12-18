@@ -18,6 +18,11 @@ namespace Assets
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
 
+        void Start()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -38,6 +43,9 @@ namespace Assets
 
         private void FixedUpdate()
         {
+            // Check if grounded
+            isGroundedVar = isGrounded();
+
             // Use rb.AddForce to apply horizontal movement
             rb.AddForce(new Vector2(horizontal * Speed, 0f));
 
@@ -50,13 +58,13 @@ namespace Assets
             {
                 animator.SetFloat("Speed", 0f);
             }
+
         }
 
         private bool isGrounded()
         {
             // Use Physics2D.OverlapCircle to check if the player is grounded
-            isGroundedVar = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-            return isGroundedVar;
+            return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         }
 
         private void Flip()
@@ -76,5 +84,6 @@ namespace Assets
             // Trigger the "Idle" animation
             animator.SetTrigger("Idle");
         }
+
     }
 }
