@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float movementSpeed = 1f;
 
+    Animator anim;
     //Variables used within this script
     Rigidbody2D rigidBody;
     
@@ -33,20 +34,25 @@ public class PlayerMovement : MonoBehaviour
         if (transform.position.y < verticalBound && (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
         {
             rigidBody.velocity = Vector2.up * movementSpeed;
-        } else if (transform.position.y > -verticalBound && (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)))
+
+        }
+        else if (transform.position.y > -verticalBound && (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)))
         {
             rigidBody.velocity = Vector2.down * movementSpeed;
-        } else if (transform.position.x < horizontalBound && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+        }
+        else if (transform.position.x < horizontalBound && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
         {
             rigidBody.velocity = Vector2.right * movementSpeed;
-        }else if (transform.position.x > -horizontalBound && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
+        }
+        else if (transform.position.x > -horizontalBound && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
         {
             rigidBody.velocity = Vector2.left * movementSpeed;
-        }else
+        }
+        else
         {
             rigidBody.velocity = Vector2.zero;
         }
-
+              
 
 
     }
