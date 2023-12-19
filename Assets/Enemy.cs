@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
     {
         if(timer < 0)
         {
-            velocity = new Vector2(-velocity.x, velocity.y);
+            velocity = new Vector2(velocity.x, -velocity.y);
             timer = zigzagTime;
         }
 
